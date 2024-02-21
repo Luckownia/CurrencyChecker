@@ -1,4 +1,36 @@
 public class CurrencyChecker{
+	private static ExecutorService pool = Executors.newFixedThreadPool(2);
+
+    public static void createAndShowGUI() {
+        ActionListener myActionListener = e -> pool.execute(() -> fetchDataAndDrawTable(
+                "https://www.baksy.pl/kurs-walut?fbclid=IwAR2ofHnrbpu7HpJhNQjxMxdnbpem0DdJP98eRdoDkub9h-1gPrhmOw19wbQ",
+                "table.rate-table tbody tr",
+                "Kantor Baksy"
+        ));
+
+        ActionListener myActionListener1 = e -> pool.execute(() -> fetchDataAndDrawTable(
+                "http://kantorwielopole.pl/pl/kursy-walut/?fbclid=IwAR2c2H1FrgVfH7xFXsLSP4QaWFoZ5unRHk_q9-UPdaxuSErdBAf5yGzOHCs",
+                ".kursy tbody tr:not(:first-child)",
+                "Kantor Wielopole"
+        ));
+
+        JFrame jf = new JFrame("Kursy Walut");
+        jf.setLayout(new FlowLayout());
+
+        JButton jb = new JButton("Kantor Baksy");
+        jb.addActionListener(myActionListener);
+        jf.getContentPane().add(jb);
+
+        JButton jb2 = new JButton("Kantor Wielopole");
+        jb2.addActionListener(myActionListener1);
+        jf.getContentPane().add(jb2);
+
+        jf.pack();
+        jf.setVisible(true);
+        jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        //wyśrodkowanie aplikacji 
+    }
 	private static Elements fetchData(String link, String way) {
         	Elements tr = null;
         	try {
@@ -49,8 +81,7 @@ public class CurrencyChecker{
 	}
 
 	public static void main(String[] args) {
-	
-
+		javax.swing.SwingUtilities.invokeLater(() -> createAndShowGUI());
 	}
 
 }
