@@ -30,6 +30,15 @@ public class CurrencyChecker{
         jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         //wyśrodkowanie aplikacji 
+	             
+        int width =400;
+	int height =300;
+	jf.setSize(width,height);
+    	int screenWidth = java.awt.Toolkit.getDefaultToolkit().getScreenSize().width;
+	int screenHeight = java.awt.Toolkit.getDefaultToolkit().getScreenSize().height;
+	int x = (screenWidth - jf.getWidth()) / 2;
+	int y = (screenHeight - jf.getHeight()) / 2;
+	jf.setLocation(x, y);
     }
 	private static Elements fetchData(String link, String way) {
         	Elements tr = null;
