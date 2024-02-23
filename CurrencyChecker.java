@@ -40,6 +40,13 @@ public class CurrencyChecker{
 	int y = (screenHeight - jf.getHeight()) / 2;
 	jf.setLocation(x, y);
     }
+	
+    private static void fetchDataAndDrawTable(String link, String way, String name) {
+        Elements tr = fetchData(link, way);
+        if (tr != null) {
+            drawTable(tr, name);
+        }
+    }
 	private static Elements fetchData(String link, String way) {
         	Elements tr = null;
         	try {
